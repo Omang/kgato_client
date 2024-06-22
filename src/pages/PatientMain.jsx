@@ -35,6 +35,7 @@ const PatientMain = () => {
   const [allergies, setAllergies] = useState('');
   const [aboutus, setAboutus] = useState('');
   const [martialstatus, setMartialstatus] = useState('');
+  const [relationship, setRelationship] = useState('');
   const [giverthere, setGiverthere] = useState(false);
   const [datar, setDatar] = useState('');
 
@@ -48,19 +49,22 @@ const PatientMain = () => {
     ev.preventDefault();
     try{
       
-      const {data} = await axios.post('/api/add/giver',{
+      const {data} = await axios.post('/api/addgiver',{
         childid: id, Firstname, Lastname, DOB, Gender, email, cellphone, worknumber, homenumber,
         nationality, occupation, employer, plotnumber, ward, place, postaladd, med_id, med_number,
-        dateJoined, contribution, allergies, aboutus
+        dateJoined, contribution, allergies, aboutus, relationship
       });
 
-      if(!data.message){
+      if(data.Firstname){
 
-       console.log('not saved');
+      console.log('data saved successfully');
+      window.location.reload();
+        
 
       }else{
-        console.log('data saved successfully');
+          console.log('not saved');
       }
+
 
     }catch(e){
       console.log(e)
@@ -81,7 +85,7 @@ const PatientMain = () => {
   const getpatient =async()=>{
         try{
 
-          const {data} = await axios.get('/api/patient/'+id);
+          const {data} = await axios.get('/api/getpatient/'+id);
 
           setDatax(data);
           console.log(data);
@@ -112,6 +116,10 @@ const PatientMain = () => {
                 <p>{datax.Lastname}</p>
                </div>
                <div className="flex flex-row mr-4">
+                <h2>Date Of Birth:</h2>
+                <p>{datax.DOB}</p>
+               </div>
+               <div className="flex flex-row mr-4">
                 <h2>Gender:</h2>
                 <p>{datax.Gender}</p>
                </div>
@@ -120,8 +128,8 @@ const PatientMain = () => {
                 <p>{datax.dateJoined}</p>
                </div>
                <div className="flex flex-row mr-4">
-                <h2>Care Taker Relationship:</h2>
-                <p>{datax.Giver_relation}</p>
+                <h2>relationship with giver:</h2>
+                <p>{datax.relationship ? <>{datax.relationship}</> : " "}</p>
                </div>
                <div className="flex flex-row  border-t border-green-700 rounded-sm m-2">
                   <Link to={`/patient/appointments/${id}`} className="border rounded-full px-2 m-1 bg-green-500 hover:bg-white">Appointments</Link>
@@ -149,7 +157,23 @@ const PatientMain = () => {
           </div>
           :
             <div>
-              <div className="mt-8 max-w-md mx-auto justify- border-green-500 border rounded-2xl">
+              {datax.relationship ? 
+
+                <div className="mt-8 max-w-md mx-auto justify- border-green-500 border rounded-2xl">
+                    <h2 className="text-2xl mt-4 text-center font-bold">Care Giver Details</h2>
+                    <div className="flex flex-col border border-green-700 rounded-md m-2">
+                   <div className="flex flex-row mr-4">
+                    <h2>How Are They Related: ...</h2>
+                    <p className="text-2xl">{datax.relationship}</p>
+                    </div>
+                    <div className="flex flex-row mr-4">
+                   <Link className="text-red-500">View More </Link>
+                    </div>
+                      
+                    </div>
+                </div>
+               :
+               <div className="mt-8 max-w-md mx-auto justify- border-green-500 border rounded-2xl">
                     <h2 className="text-2xl mt-4 text-center font-bold">Care Giver Form</h2>
                     <form className='py-2 px-4' onSubmit={addNewgiver}>
                         <h2 className="text-xl mt-1">Firstname</h2>
@@ -202,7 +226,7 @@ const PatientMain = () => {
                         <input required value={place} onChange={ev => setPlace(ev.target.value)} className="border-green-500" 
                         type="text" placeholder="location" />
 
-                        <h2 className="text-xl mt-1">Martial Status</h2>
+                        <h2 className="text-xl mt-1">Postal Address</h2>
                         <input required value={postaladd} onChange={ev => setPostaladd(ev.target.value)} className="border-green-500" 
                         type="text" placeholder="P. O Box 11 Ncojane" />
                         <h2 className="text-xl mt-1">Email</h2>
@@ -224,6 +248,9 @@ const PatientMain = () => {
                         <h2 className="text-xl mt-1">Allergies</h2>
                         <input required value={allergies} onChange={ev => setAllergies(ev.target.value)} className="border-green-500" 
                         type="text" placeholder="Allergies" />
+                        <h2 className="text-xl mt-1">Relationship with the patient</h2>
+                        <input required value={relationship} onChange={ev => setRelationship(ev.target.value)} className="border-green-500" 
+                        type="text" placeholder="Allergies" />
                         <h2 className="text-xl mt-1">How did you hear about us</h2>
                         <input required value={aboutus} onChange={ev => setAboutus(ev.target.value)} className="border-green-500" 
                         type="text" placeholder="about us" />
@@ -244,6 +271,8 @@ const PatientMain = () => {
                         <button type="submit" className="hover:bg-green-500 border border-green-500 justify-center py-2 px-4 rounded-2xl">Create</button>
                     </form>
                    </div>
+
+                }
             </div>
     }
            </div>

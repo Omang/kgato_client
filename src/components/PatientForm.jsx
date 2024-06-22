@@ -2,21 +2,22 @@ import { useContext, useEffect, useState } from "react";
 import GridLoader from "react-spinners/GridLoader"
 //import UsernavPage from "./UsernavPage"
 import { UserContext } from "../UserContext";
-import axios, { Axios } from "axios";
+import axios  from "axios";
 import { Navigate, useParams } from "react-router-dom";
 //import NotificationContext from "../NotificationContext";
 import RepNav from './RepNav'
 
 const PatientForm = () => {
+
   //const {id} = useParams();
    // const {user} = useContext(UserContext); 
 
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');
+    const [DOB, setDOB] = useState('');
     const [Genderx, setGenderx] = useState('');
     const [dateJoined, setDateJoined] = useState('');
     const [GiverRelation, setGiverRelation] = useState('');
-   
     const [redirect, setRedirect] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] =useState(null);
@@ -34,8 +35,8 @@ const PatientForm = () => {
        setLoading(true);
       try{
 
-        const {data} = await axios.post('/api/add/patient', {
-          Firstname, Lastname, Gender: Genderx, dateJoined, Giver_relation: GiverRelation
+        const {data} = await axios.post('/api/addpatient', {
+          Firstname, Lastname, DOB,  Gender: Genderx, dateJoined, Giver_relation: GiverRelation
         });
 
         if(!data.message){
@@ -93,6 +94,9 @@ const PatientForm = () => {
                     type="text" placeholder="Firstname" />
                     <h2 className="text-xl mt-1">Lastname</h2>
                     <input required value={Lastname} onChange={ev => setLastname(ev.target.value)} className="border-green-500" 
+                    type="text" placeholder="Lastname" />
+                    <h2 className="text-xl mt-1">Date Of Birth</h2>
+                    <input required value={DOB} onChange={ev => setDOB(ev.target.value)} className="border-green-500" 
                     type="text" placeholder="Lastname" />
                     <h2 className="text-xl mt-1">Gender</h2>
                     <select className="border-green-500 border rounded-2xl mb-2" onChange={onchangeHandler} >

@@ -13,7 +13,7 @@ const PatientsPage = () => {
 
   const getall = async()=>{
        try{
-         const {data} = await axios.post('/api/getall/patients', {id: 'me'});
+         const {data} = await axios.post('/api/allpatient', {id: 'me'});
          if(!data.message){
           setOwners(data);
          }else{

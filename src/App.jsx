@@ -32,7 +32,7 @@ function App() {
 
       <Route index element={<IndexPage />} />
       <Route path='/rep' element={<RepPage />} />
-      <Route path='/newpatient' element={<PatientForm />} />
+      /* <Route path='/newpatient' element={<PatientForm />} />
       <Route path='/doc' element={<DoctorPage />} />
       <Route path='/appointments' element={<AppointmentsPage />} />
       <Route path='/appointment/:id' element={<Appointment />} />
