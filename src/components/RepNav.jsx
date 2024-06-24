@@ -8,7 +8,6 @@ const RepNav = () => {
         <Link className='border rounded-2xl mx-1 px-2 py-1 border-green-500 hover:bg-green-500' to={'/rep'}>Main</Link>
         <Link className='border rounded-2xl mx-1 px-2 py-1 border-green-500 hover:bg-green-500' to={'/patients'}>Patients</Link>
         <Link className='border rounded-2xl mx-1 px-2 py-1 border-green-500 hover:bg-green-500' to={'/appointments'}>Appointments</Link>
-        <Link className='border rounded-2xl mx-1 px-2 py-1 border-green-500 hover:bg-green-500' to={'payments'}>Payments</Link>
         <Link className='border rounded-2xl mx-1 px-2 py-1 border-yellow-500 hover:bg-red-500' to={'/'}>Log Out</Link>
       </div>
     </div>

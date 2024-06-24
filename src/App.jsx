@@ -21,7 +21,7 @@ import PatientAppointments from './pages/PatientAppointments'
 
 const datax = import.meta.env.VITE_REACT_APP_SERVER_URL
 
-axios.defaults.baseURL = 'https://kgato-server.onrender.com';
+axios.defaults.baseURL = 'http://localhost:5000';
 
 function App() {
 
